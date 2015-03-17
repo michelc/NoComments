@@ -53,6 +53,7 @@ namespace NoComments
                     {
                         in_multi = true;
                         result.Length--;
+                        result = new StringBuilder(result.ToString().TrimEnd());
                     }
                 }
                 if (multi_ending)
@@ -71,6 +72,7 @@ namespace NoComments
                     {
                         in_mono = true;
                         result.Length--;
+                        result = new StringBuilder(result.ToString().TrimEnd());
                     }
                 }
 

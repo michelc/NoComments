@@ -6,13 +6,13 @@ namespace NoComments.Tests
     public class ProgramTest
     {
         [TestMethod]
-        public void Remove_Monoline_Comment_At_Start_Of_Line()
+        public void Remove_Monoline_Comment_And_Newline_At_Start_Of_Line()
         {
             // A monoline comment that starts at the beginning of the line
             var sql = "Ligne1\n--Ligne2\nLigne3\n";
 
             var actual = Program.NoSqlComments(sql);
-            var expected = "Ligne1\n\nLigne3\n";
+            var expected = "Ligne1\nLigne3\n";
 
             Assert.AreEqual(expected, actual);
         }
@@ -74,13 +74,13 @@ namespace NoComments.Tests
         }
 
         [TestMethod]
-        public void Remove_Multiline_Comment_At_Start_Of_Line()
+        public void Remove_Multiline_Comment_And_Newline_At_Start_Of_Line()
         {
             // A multiline comment that starts at the beginning of the line
             var sql = "Ligne1\n/*Ligne2*/\nLigne3\n";
 
             var actual = Program.NoSqlComments(sql);
-            var expected = "Ligne1\n\nLigne3\n";
+            var expected = "Ligne1\nLigne3\n";
 
             Assert.AreEqual(expected, actual);
         }
@@ -104,7 +104,19 @@ namespace NoComments.Tests
             var sql = "Ligne1\n/*Ligne2\nLigne3\n";
 
             var actual = Program.NoSqlComments(sql);
-            var expected = "Ligne1\n";
+            var expected = "Ligne1";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Remove_Multiline_Comment_And_Newline_On_Several_Lines()
+        {
+            // A multiline comment that continues on several lines
+            var sql = "Ligne1\n/*Ligne2\nLigne3*/\nLigne4";
+
+            var actual = Program.NoSqlComments(sql);
+            var expected = "Ligne1\nLigne4";
 
             Assert.AreEqual(expected, actual);
         }
@@ -113,10 +125,10 @@ namespace NoComments.Tests
         public void Remove_Multiline_Comment_On_Several_Lines()
         {
             // A multiline comment that continues on several lines
-            var sql = "Ligne1\n/*Ligne2\nLigne3*/\nLigne4";
+            var sql = "Ligne1\nLigne/*2\nLigne3*/\nLigne4";
 
             var actual = Program.NoSqlComments(sql);
-            var expected = "Ligne1\n\nLigne4";
+            var expected = "Ligne1\nLigne\nLigne4";
 
             Assert.AreEqual(expected, actual);
         }
@@ -172,7 +184,7 @@ namespace NoComments.Tests
             var sql = "Ligne1\n/*Ligne2* /\nLigne3\n";
 
             var actual = Program.NoSqlComments(sql);
-            var expected = "Ligne1\n";
+            var expected = "Ligne1";
 
             Assert.AreEqual(expected, actual);
         }
