@@ -108,7 +108,7 @@ namespace NoComments
                 if (!in_multi && !in_mono) result.Append(c);
             }
 
-            return result.ToString();
+            return result.ToString().Trim();
         }
     }
 }

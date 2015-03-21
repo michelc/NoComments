@@ -23,13 +23,11 @@ WHERE  Caption LIKE 'C%' /* Customers! */
 ## After
 
 ```SQL
-
 SELECT *
      , 'a -- false comment' AS Test1
      , 'another /* false comment */' AS Test2
 FROM   OneTable
 WHERE  Caption LIKE 'C%'
-
 ```
 
 
