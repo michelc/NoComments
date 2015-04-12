@@ -89,7 +89,6 @@ namespace NoComments
                         break;
                     case '\'':
                         // Start or end a literal string
-                        in_string = !in_string;
                         break;
                     case '\n':
                     case '\r':

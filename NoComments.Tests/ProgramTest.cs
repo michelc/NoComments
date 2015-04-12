@@ -188,5 +188,29 @@ namespace NoComments.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void Do_Not_Start_String_Inside_Monoline_Comment()
+        {
+            // A monoline comment with a quote inside
+            var sql = "Ligne1\n--Ligne'2\nLigne='3--'";
+
+            var actual = Program.NoSqlComments(sql);
+            var expected = "Ligne1\nLigne='3--'";
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Do_Not_Start_String_Inside_Multiline_Comment()
+        {
+            // A multiline comment with a quote inside
+            var sql = "Ligne1\n/*Ligne'2\nLigne3*/\nLigne='4--'";
+
+            var actual = Program.NoSqlComments(sql);
+            var expected = "Ligne1\nLigne='4--'";
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
